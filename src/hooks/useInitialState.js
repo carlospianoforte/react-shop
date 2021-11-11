@@ -10,7 +10,7 @@ const useInitialState = () => {
     const IdExist = (id) => {
         const idExist = state.cart.some((item) => item.id === id) ;//revisa que el id exista
 
-        if (idExist) {//si existe ejecuta la funcion y suma + al id
+        if (idExist) {//si existe ejecuta la funcion y suma + el id sobre la funcion revisando el valor nuevo en la funcion
             return IdExist(id+1);
         }else{
             return id;// si no existe retorna el id
