@@ -2,6 +2,8 @@ import {useState} from 'react';
 
 const initialState = {
     cart: [],
+    orderIsOpen: false,
+    menuIsOpen: false,
 };
 
 const useInitialState = () => {
@@ -18,7 +20,7 @@ const useInitialState = () => {
       
     };
 
-    const addToCart = (payload) => {
+/*     const addToCart = (payload) => {
         const newId = IdExist(payload.id) 
         const payloaNewId = {
             ...payload,
@@ -29,6 +31,13 @@ const useInitialState = () => {
             ...state,//mantiene el estado
             cart: [...state.cart, payloaNewId]//a lo que tiene cart agregarle el producto nuevo payload
         })
+    }; */
+
+    const addToCart = (payload) => {
+        setState({
+            ...state,//mantiene el estado
+            cart: state.cart.includes(payload) ? state.cart : [...state.cart, payload]
+        })
     };
 
     const removeFromCart = (payload) => {
@@ -37,10 +46,28 @@ const useInitialState = () => {
             cart: state.cart.filter(item => item.id !== payload.id)//deja solo los diferentes al id buscado
         })
     };
+
+    const toggleOrders = () => {
+        setState({
+            ...state,
+            orderIsOpen: !state.orderIsOpen
+        })
+    };
+
+    const toggleMenu = () => {
+        setState({
+            ...state,
+            menuIsOpen: !state.menuIsOpen
+        })
+    };
+
     return{
         state,//manda el estado
         addToCart,//manda la nueva funcion que agrego los valores
-        removeFromCart//manda el nuevo arreglo con los valores sin el filtrado
+        removeFromCart,//manda el nuevo arreglo con los valores sin el filtrado
+        toggleOrders,
+        toggleMenu,
+
     }
 }
 

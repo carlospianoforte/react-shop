@@ -8,18 +8,9 @@ import logo from '@logos/logo_yard_sale.svg';
 import shoppingCart from '@icons/icon_shopping_cart.svg';
 
 const Header = () => {
-	const[toggle, setToggle] = useState(false);
-	const[toggleOrders, setToggleOrders] = useState(false);
 
-	const { state } = useContext(AppContext);
+	const { state, toggleOrders, toggleMenu } = useContext(AppContext);
 
-	const handleToggle = () => {
-		setToggle(!toggle);//cambia el valor de toggle cada que se de click en el boton
-	};
-
-	const handleToggleOrders = () => {
-		setToggleOrders(!toggleOrders);
-	};
 	return (
 		<nav>
 			<img src={menu} alt="menu" className="menu" />
@@ -48,17 +39,17 @@ const Header = () => {
 			</div>
 			<div className="navbar-right">
 				<ul>
-					<li className="navbar-email" onClick={handleToggle}>
+					<li className="navbar-email" onClick={()=>toggleMenu()}>
 						platzi@example.com
 					</li>
-					<li className="navbar-shopping-cart" onClick={handleToggleOrders}>
+					<li className="navbar-shopping-cart" onClick={()=>toggleOrders()}>
 						<img src={shoppingCart} alt="shopping cart" />
 						{state.cart.length > 0 ? <div>{state.cart.length}</div>  : null}
 					</li>
 				</ul>
 			</div>
-			{toggle && <Menu />}
-			{toggleOrders && <MyOrder />}
+			{state.menuIsOpen && <Menu />}
+			{state.orderIsOpen && <MyOrder />}
 		</nav>
 	);
 }
